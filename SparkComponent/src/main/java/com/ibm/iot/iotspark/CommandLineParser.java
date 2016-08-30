@@ -21,6 +21,7 @@ import org.kohsuke.args4j.Option;
 
 public class CommandLineParser {
 	private static final String DEFAULT_MQTT_TOPICS = "iot-2/type/+/id/+/evt/+/fmt/+";
+	private static final String DEFAULT_PUBLISH_TYPE = "PublishType";
 	private static final String DEFAULT_MQTT_SERVER_URI = "ssl://o672lp.messaging.internetofthings.ibmcloud.com:8883";
 	private static final String DEFAULT_APP_ID = "a:o672lp:IoTSparkAsServiceSample123";
 	private static final String DEFAULT_API_KEY = "a-o672lp-ftvqqaw5kn";
@@ -37,6 +38,9 @@ public class CommandLineParser {
 
 	@Option(name="--mqtopic", usage="IoTF MQTT topic")
 	private String mqttTopic = DEFAULT_MQTT_TOPICS;
+	
+	@Option(name="--publishtype", usage="Publish Type")
+	private String publishType = DEFAULT_PUBLISH_TYPE;
 	
 	@Option(name="--predictive-service-url", usage="Predictiv Analytics Service URL")
 	private String pURL = null;
@@ -70,6 +74,10 @@ public class CommandLineParser {
 		return mqttTopic;
 	}
 
+	public String getPublishType() {
+		return publishType;
+	}
+	
 	public String getApiKey() {
 		return apiKey;
 	}

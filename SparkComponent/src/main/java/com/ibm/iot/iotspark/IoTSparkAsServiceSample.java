@@ -78,6 +78,7 @@ public class IoTSparkAsServiceSample implements Serializable {
 	   */
 	  private int wZScoreWindow = 0;
 	  
+	  private String publishType;
 	  
 	 /**
 	  * A class that holds the IoT device event
@@ -183,7 +184,8 @@ public class IoTSparkAsServiceSample implements Serializable {
 						 * iot-2/type/device_type/id/device_id/evt/result/fmt/json
 						 */
 				                
-						String publishTopic = "iot-2/type/" + event.getDeviceType() + "/id/" + event.getDeviceId() + "/evt/result/fmt/json";
+						//String publishTopic = "iot-2/type/" + event.getDeviceType() + "/id/" + event.getDeviceId() + "/evt/result/fmt/json";
+						String publishTopic = "iot-2/type/" + publishType + "/id/" + event.getDeviceId() + "/evt/result/fmt/json";
 						SimpleClient client = SimpleClient.getSimpleClient();
 						//Connect if its not connected already
 						client.connect(serverURI, clientId, apiKey, authToken);
@@ -216,12 +218,13 @@ public class IoTSparkAsServiceSample implements Serializable {
 	 * @throws Throwable
 	 */
   	public void runPrediction(String mqtopic, String brokerUrl, String appID, 
-  			String apiKey, String authToken, SparkContext sc, int interval) throws Throwable {
+  			String apiKey, String authToken, String publishType, SparkContext sc, int interval) throws Throwable {
 
   		this.serverURI = brokerUrl;
   		this.apiKey = apiKey;
   		this.authToken = authToken;
   		this.clientId = appID;
+  		this.publishType = publishType;
   		
   		/**
   		 * Let us verify the Watson IoT and Predictive Analytics service connectivity with the data given 
@@ -311,6 +314,7 @@ public class IoTSparkAsServiceSample implements Serializable {
     	  System.out.println("MQTT appid:" + arguments.getProperty("appid"));
     	  System.out.println("MQTT apikey:" + arguments.getProperty("apikey"));
     	  System.out.println("MQTT authtoken:" + arguments.getProperty("authtoken"));
+    	  System.out.println("MQTT publishtype:" + arguments.getProperty("publishtype"));
     	  
     	  IoTSparkAsServiceSample sample = new IoTSparkAsServiceSample();
     	  
@@ -322,7 +326,7 @@ public class IoTSparkAsServiceSample implements Serializable {
           
           // Watson IoT Platform parameters to read the temperature events from the IoT Device
 	      sample.runPrediction(arguments.getProperty("mqtopic"), arguments.getProperty("uri"), 
-	    		   arguments.getProperty("appid"), arguments.getProperty("apikey"), arguments.getProperty("authtoken"), sc, interval);
+	    		   arguments.getProperty("appid"), arguments.getProperty("apikey"), arguments.getProperty("authtoken"), arguments.getProperty("publishtype"), sc, interval);
 	      
       } catch (FileNotFoundException fe) {
           fe.printStackTrace(System.err);
@@ -386,7 +390,7 @@ public class IoTSparkAsServiceSample implements Serializable {
             * The Spart streaming MQTT util will require the Watson IoT Platform details so that it can receive the data
             * from Watson IoT Platform.
             */
-           sample.runPrediction(parser.getMqttTopic(), parser.getServerURI(), parser.getAppId(), parser.getApiKey(), parser.getAuthToken(), null, 4);
+           sample.runPrediction(parser.getMqttTopic(), parser.getServerURI(), parser.getAppId(), parser.getApiKey(), parser.getAuthToken(), parser.getPublishType(), null, 4);
        } catch (FileNotFoundException fe) {
            fe.printStackTrace(System.err);
        } catch (MqttException e) {

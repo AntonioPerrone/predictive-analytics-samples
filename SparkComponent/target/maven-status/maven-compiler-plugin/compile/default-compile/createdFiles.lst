@@ -1,0 +1,13 @@
+com\ibm\iot\iotspark\IoTSparkAsServiceSample.class
+com\ibm\iot\iotspark\IoTZScore.class
+com\ibm\iot\iotspark\IoTPredictionNonPeriodic.class
+com\ibm\iot\iotspark\CommandLineParser.class
+com\ibm\iot\iotspark\IoTSparkAsServiceSample$1.class
+com\ibm\iot\iotspark\SimpleClient$Publisher.class
+com\ibm\iot\iotspark\SimpleClient.class
+com\ibm\iot\iotspark\IoTSparkAsServiceSample$State.class
+com\ibm\iot\iotspark\SimpleClient$1.class
+com\ibm\iot\iotspark\SimpleClient$Publisher$1.class
+com\ibm\iot\iotspark\IoTSparkAsServiceSample$2.class
+com\ibm\iot\iotspark\IoTPrediction.class
+com\ibm\iot\iotspark\IoTSparkAsServiceSample$IoTEvent.class
